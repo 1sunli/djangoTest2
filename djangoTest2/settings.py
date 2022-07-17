@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'djangoTest2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vuedjango',
+        'NAME': 'djangoTest2',
         'USER': 'root',
-        'PASSWORD': '19900501',
+        'PASSWORD': 'Sl!24680',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -157,3 +157,10 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'UPDATE_LAST_LOGIN': True,
 }
+BASE_URL = "http://localhost"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'xtlyk@163.com'
+EMAIL_HOST_PASSWORD = 'DBLCRQIXHYFHNZTR'
