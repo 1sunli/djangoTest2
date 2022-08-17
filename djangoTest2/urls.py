@@ -20,7 +20,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from rest_framework import routers
-from oAuth.views import UserInfoViewSet, UserViewSet, BookViewSet, UserCreateViewSet
+from oAuth.views import UserInfoViewSet, UserViewSet, BookViewSet, UserCreateViewSet, FileViewSet
+
+from django.urls import include, path
+from oAuth import views
+
+
+
+
 
 router_V1 = routers.DefaultRouter()
 router_V1.register('info', UserInfoViewSet)
@@ -28,6 +35,10 @@ router_V1.register('user_activate', UserCreateViewSet)
 router_V1.register('user_create', UserCreateViewSet)
 router_V1.register('users', UserViewSet)
 router_V1.register('books', BookViewSet)
+router_V1.register('files', FileViewSet)
+
+
+
 
 urlpatterns = [
     path('api/', include(router_V1.urls)),

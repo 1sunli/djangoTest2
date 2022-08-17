@@ -2,10 +2,11 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from oAuth.models import NewUser, Books
 from rest_framework.response import Response
-from oAuth.serializers import UserSerializer, Bookerializer
+from oAuth.serializers import UserSerializer, BookSerializer
 from django.db.models import Q
 from djangoTest2.settings import BASE_URL
 from django.core.mail import send_mail
+
 
 # Create your views here.
 
@@ -24,10 +25,10 @@ class UserInfoViewSet(viewsets.ViewSet):
 
         return Response(user_info)
 
-class BookViewSet(viewsets.ModelViewSet):
 
+class BookViewSet(viewsets.ModelViewSet):
     queryset = Books.objects.all()
-    serializer_class = Bookerializer
+    serializer_class = BookSerializer
 
     def list(self, request, *args, **kwargs):
         # self.queryset = self.queryset.filter(~Q(is_delete=True))
@@ -47,7 +48,6 @@ class BookViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -70,8 +70,6 @@ class BookViewSet(viewsets.ModelViewSet):
         kwargs['partial'] = True
         return self.update(request, *args, **kwargs)
 
-
-
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
@@ -83,11 +81,11 @@ class BookViewSet(viewsets.ModelViewSet):
         instance.save()
         # instance.delete()
 
-
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = NewUser.objects.all()
@@ -113,6 +111,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
 
 class UserCreateViewSet(viewsets.ModelViewSet):
     queryset = NewUser.objects.all()
@@ -154,3 +153,11 @@ class UserCreateViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save()
+
+from rest_framework.viewsets import ModelViewSet
+from oAuth import models, serializers
+
+
+class FileViewSet(ModelViewSet):
+    queryset = models.FilesModel.objects.all()
+    serializer_class = serializers.FilesSerializer

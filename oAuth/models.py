@@ -28,3 +28,11 @@ class Books(models.Model):
     name = models.CharField(verbose_name='书名', max_length=10)
     auther = models.CharField(verbose_name='作者', max_length=10)
     is_delete = models.BooleanField(verbose_name='是否删除', default=False)
+
+
+class FilesModel(models.Model):
+    file = models.FileField(upload_to='uploads/')
+
+    class Meta:
+        db_table = 'files_storage'
+        ordering = ['-id']
