@@ -31,6 +31,7 @@ class Books(models.Model):
 
 
 class FilesModel(models.Model):
+    name = models.CharField(max_length=20, default='')
     file = models.FileField(upload_to='uploads/')
 
     class Meta:
